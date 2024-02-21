@@ -42,12 +42,32 @@ public class SumOfContinuousNums {
         return answer;
     }
 
+    // 수학적 풀이
+    // 15 = 1 + 2 -> 12 % 2 = 0;
+    // 15 = 1 + 2 + 3 -> 9 % 3 = 0;
+    // 15 = 1 + 2 + 3 + 4 -> 5 %4 = 1; 나눌 수 없음
+    // 15 = 1 + 2 + 3 + 4 + 5 -> 0 % 5 = 0;
+    public int teacherSolution2(int N) {
+
+        int sum = 1 + 2;
+        int start = 2;
+        int cnt = 0;
+        while (sum <= N) {
+            if ((N - sum) % start == 0) {
+                cnt++;
+            }
+            sum += ++start;
+        }
+        return cnt;
+    }
+
     public static void main(String[] args) {
         SumOfContinuousNums T = new SumOfContinuousNums();
         Scanner kb = new Scanner(System.in);
 
         int N = kb.nextInt();
         System.out.println(T.mySolution(N));
+        System.out.println(T.teacherSolution2(N));
 
         kb.close();
     }
