@@ -16,3 +16,17 @@ Map<Character, Integer> TMap = new HashMap<>();
 
 SMap.equals(TMap)
 ```
+
+## TreeSet
+
+> 중복 제거 & 오름차순 정렬
+
+- 균형잡힌 이진 트리
+
+```java
+TreeSet<Integer> Tset = new TreeSet<>(Collections.reverseOrder()); // 내림차순 정렬
+Tset.remove(103);
+Tset.size(); // Tset의 원소의 개수
+Tset.fist(); // 내림차순에서 가장 큰 값, 오름찬순에서 가장 작은 값
+Tset.last(); // 위와 반대
+```
