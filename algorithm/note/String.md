@@ -39,6 +39,12 @@
 
 - 숫자 -> char 변환: 단순 (char) 캐스팅.
 - char 배열 -> String 변환: String.valueOf(char[] charArray).
+- char -> int
+
+```java
+char p = '9';
+st.push(p-'0');
+```
 
 ### Scanner 사용
 
