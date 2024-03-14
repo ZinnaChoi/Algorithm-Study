@@ -15,9 +15,11 @@ public class Stable {
                 cnt++;
                 cur = stable[i];
             }
+            if (cnt == C)
+                break;
         }
 
-        return cnt >= C ? true : false;
+        return cnt == C ? true : false;
     }
 
     public int mySolution(int N, int C, int[] stable) {
