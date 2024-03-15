@@ -1,5 +1,7 @@
 package com.example.lecture.DFS_BFS;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
@@ -8,7 +10,7 @@ public class ExchangeCoin {
 
     public static int N;
     public static int M;
-    public static int[] type;
+    public static Integer[] type;
     public static Queue<int[]> Q = new LinkedList<>();
 
     public int BFS() {
@@ -39,16 +41,16 @@ public class ExchangeCoin {
         Scanner kb = new Scanner(System.in);
 
         N = kb.nextInt();
-        type = new int[N];
+        type = new Integer[N];
 
         for (int i = 0; i < N; i++) {
             type[i] = kb.nextInt();
         }
 
+        Arrays.sort(type, Collections.reverseOrder());
+
         M = kb.nextInt();
-
         System.out.println(T.BFS());
-
         kb.close();
     }
 
