@@ -7,6 +7,20 @@ public class DuplicatePermutation {
     public static int N;
     public static int M;
     public static int[] nums;
+    public static int[] pm;
+
+    public void TeacherDFS(int L) {
+        if (L == M) {
+            for (int x : pm)
+                System.out.print(x + " ");
+            System.out.println();
+        } else {
+            for (int i = 1; i <= N; i++) {
+                pm[L] = i;
+                TeacherDFS(L + 1);
+            }
+        }
+    }
 
     public void DFS(int L, String picked) {
 
@@ -27,12 +41,15 @@ public class DuplicatePermutation {
         N = kb.nextInt();
         M = kb.nextInt();
 
+        pm = new int[M];
         nums = new int[N];
+
         for (int i = 1; i <= N; i++) {
             nums[i - 1] = i;
         }
 
-        T.DFS(0, "");
+        // T.DFS(0, "");
+        T.TeacherDFS(0);
 
         kb.close();
     }
