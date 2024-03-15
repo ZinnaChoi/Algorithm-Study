@@ -22,6 +22,8 @@ public class ExchangeCoin {
             int sum = current[0];
             int L = current[1];
 
+            if (sum > M)
+                continue;
             if (sum == M)
                 return L;
 
