@@ -19,13 +19,12 @@ public class GetPermutation {
 
         } else {
             for (int i = 0; i < N; i++) {
-                if (visited[i] == 1) {
-                    continue;
+                if (visited[i] == 0) {
+                    selected[L] = nums[i];
+                    visited[i] = 1;
+                    DFS(L + 1);
+                    visited[i] = 0;
                 }
-                selected[L] = nums[i];
-                visited[i] = 1;
-                DFS(L + 1);
-                visited[i] = 0;
             }
         }
     }
