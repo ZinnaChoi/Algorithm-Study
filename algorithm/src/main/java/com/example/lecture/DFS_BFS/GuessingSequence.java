@@ -14,14 +14,12 @@ public class GuessingSequence {
     private int getF(int[] selected) {
         while (selected.length > 1) {
             int[] next = new int[selected.length - 1];
-
             for (int i = 0; i < selected.length - 1; i++) {
                 next[i] = selected[i] + selected[i + 1];
             }
             selected = next;
         }
         return selected[0];
-
     }
 
     public void DFS(int L) {
@@ -45,12 +43,10 @@ public class GuessingSequence {
                 }
             }
         }
-
     }
 
     public static void main(String[] args) {
         GuessingSequence T = new GuessingSequence();
-
         Scanner kb = new Scanner(System.in);
 
         N = kb.nextInt();
@@ -65,7 +61,6 @@ public class GuessingSequence {
         }
 
         T.DFS(0);
-
         kb.close();
     }
 
