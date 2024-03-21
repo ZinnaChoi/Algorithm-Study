@@ -6,7 +6,6 @@ public class GetCombination {
 
     static int N;
     static int M;
-    static int[] nums;
     static int[] visited;
     static int[] picked;
 
@@ -18,10 +17,10 @@ public class GetCombination {
             System.out.println();
         } else {
             for (int i = 0; i < N; i++) {
-                if (visited[i] == 0 && max < nums[i]) {
-                    picked[L] = nums[i];
+                if (visited[i] == 0 && max < i + 1) {
+                    picked[L] = i + 1;
                     visited[i] = 1;
-                    DFS(L + 1, nums[i]);
+                    DFS(L + 1, i + 1);
                     visited[i] = 0;
                 }
             }
@@ -34,12 +33,6 @@ public class GetCombination {
 
         N = kb.nextInt();
         M = kb.nextInt();
-
-        nums = new int[N];
-
-        for (int i = 0; i < N; i++) {
-            nums[i] = i + 1;
-        }
 
         visited = new int[N];
         picked = new int[M];
