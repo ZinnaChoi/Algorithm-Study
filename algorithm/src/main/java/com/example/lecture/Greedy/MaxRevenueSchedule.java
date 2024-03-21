@@ -26,12 +26,13 @@ public class MaxRevenueSchedule {
     }
 
     public int getMaxIncome(List<Lecture> lectures) {
-        Collections.sort(lectures);
-
+        int answer = 0;
         PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
-        int maxIncome = 0;
-        int j = 0;
+
+        Collections.sort(lectures);
         int lastDay = lectures.get(0).period;
+
+        int j = 0;
 
         for (int i = lastDay; i > 0; i--) {
             while (j < lectures.size() && lectures.get(j).period >= i) {
@@ -39,11 +40,10 @@ public class MaxRevenueSchedule {
                 j++;
             }
             if (!pq.isEmpty()) {
-                maxIncome += pq.poll();
+                answer += pq.poll();
             }
         }
-
-        return maxIncome;
+        return answer;
     }
 
     public static void main(String[] args) {
