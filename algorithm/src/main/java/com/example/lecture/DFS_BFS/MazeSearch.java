@@ -14,17 +14,17 @@ public class MazeSearch {
             cnt++;
         else {
             for (int[] d : dir) {
-                if (a + d[0] >= 0 && a + d[0] < 7 && b + d[1] >= 0 && b + d[1] < 7
-                        && maze[a + d[0]][b + d[1]] == 0
-                        && visited[a + d[0]][b + d[1]] == 0) {
-                    visited[a + d[0]][b + d[1]] = 1;
-                    DFS(a + d[0], b + d[1]);
-                    visited[a + d[0]][b + d[1]] = 0;
+                int da = a + d[0];
+                int db = b + d[1];
+                if (da >= 0 && da < 7 && db >= 0 && db < 7
+                        && maze[da][db] == 0
+                        && visited[da][db] == 0) {
+                    visited[da][db] = 1;
+                    DFS(da, db);
+                    visited[da][db] = 0;
                 }
             }
-
         }
-
     }
 
     public static void main(String[] args) {
