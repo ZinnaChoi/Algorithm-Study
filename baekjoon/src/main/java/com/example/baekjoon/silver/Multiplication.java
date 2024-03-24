@@ -16,8 +16,13 @@ public class Multiplication {
         else {
             return (int) ((temp * A) % C);
         }
-
     }
+
+    // half = A ^ (B/2) % C
+    // 1) B가 짝수일 때
+    // return half * half % C
+    // 2) B가 홀수일 때
+    // return half * half * A % C
 
     public static void main(String[] args) {
         Multiplication T = new Multiplication();
