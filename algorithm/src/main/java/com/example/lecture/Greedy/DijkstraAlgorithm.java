@@ -28,7 +28,7 @@ public class DijkstraAlgorithm {
 
     public void dijkstra(int start) {
         PriorityQueue<Point> Q = new PriorityQueue<>();
-        dis[1] = 0;
+        dis[start] = 0;
         Q.offer(new Point(1, 0));
 
         while (!Q.isEmpty()) {
