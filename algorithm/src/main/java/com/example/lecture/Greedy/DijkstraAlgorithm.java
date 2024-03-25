@@ -1,9 +1,7 @@
 package com.example.lecture.Greedy;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Scanner;
 
 public class DijkstraAlgorithm {
@@ -66,7 +64,6 @@ public class DijkstraAlgorithm {
         T.dijkstra(1);
 
         for (int i = 2; i <= N; i++) {
-
             System.out.println(i + " : " + (dis[i] == Integer.MAX_VALUE ? "impossible" : dis[i]));
         }
 
