@@ -33,6 +33,8 @@ public class DijkstraAlgorithm {
 
         while (!Q.isEmpty()) {
             Point cur = Q.poll();
+            if (visited[cur.node] == 1)
+                continue;
             visited[cur.node] = 1;
 
             for (int i = 1; i <= N; i++) {
