@@ -6,3 +6,8 @@
 ```java
  PriorityQueue<Integer> pq = new PriorityQueue<>(Comparator.reverseOrder());
 ```
+
+# DisJoint-Set (서로소 집합) : Union & Find
+
+- Greedy > `TeacherIsFreind.java`
+  - 같은 서로소 집합에 속해 있으면 return "YES", 서로 다른 서로소 집합에 속해 있으면 return "NO"
