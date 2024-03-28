@@ -8,8 +8,7 @@ import java.util.Scanner;
 public class BuildTallestTower {
 
     static int N;
-    static int[] h; // height
-    static int[] tw; // top weight
+    static int[] mh; // max height
 
     public class Brick implements Comparable<Brick> {
         private int area;
@@ -30,34 +29,24 @@ public class BuildTallestTower {
 
     public int getMaxHeight(List<Brick> bricks) {
         Collections.sort(bricks);
-        int maxHeight = 0;
 
-        for (int i = 1; i <= N; i++) {
-            Brick cur = bricks.get(i - 1);
+        int answer = 0;
+        mh[0] = bricks.get(0).height;
 
-            if (cur.weight < tw[i - 1] || i == 1) {
-                h[i] = h[i - 1] + cur.height;
-                tw[i] = cur.weight;
-            } else {
-                int tmp = 0;
-                for (int j = i - 1; j > 0; j--) {
-                    if (tw[j] > cur.weight) {
-                        tmp = j;
-                        break;
-                    }
+        for (int i = 1; i < N; i++) {
+            int max = 0;
+            Brick cur = bricks.get(i);
+
+            for (int j = i - 1; j >= 0; j--) {
+                if (cur.weight < bricks.get(j).weight) {
+                    max = Math.max(mh[j], max);
                 }
-                if (h[tmp] + cur.height < h[i - 1]) {
-                    h[i] = h[tmp] + cur.height;
-                    tw[i] = cur.weight;
-                } else {
-                    h[i] = h[i - 1];
-                    tw[i] = tw[i - 1];
-                }
+                mh[i] = max + cur.height;
             }
-            maxHeight = Math.max(h[i], maxHeight);
+            answer = Math.max(answer, mh[i]);
         }
 
-        return maxHeight;
+        return answer;
     }
 
     public static void main(String[] args) {
@@ -65,8 +54,7 @@ public class BuildTallestTower {
         Scanner kb = new Scanner(System.in);
         List<Brick> bricks = new ArrayList<>();
         N = kb.nextInt();
-        h = new int[N + 1];
-        tw = new int[N + 1];
+        mh = new int[N];
 
         for (int i = 0; i < N; i++) {
             bricks.add(T.new Brick(kb.nextInt(), kb.nextInt(), kb.nextInt()));
