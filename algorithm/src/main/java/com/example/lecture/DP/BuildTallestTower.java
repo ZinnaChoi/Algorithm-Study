@@ -10,7 +10,7 @@ public class BuildTallestTower {
     static int N;
     static int[] mh; // max height
 
-    public class Brick implements Comparable<Brick> {
+    static class Brick implements Comparable<Brick> {
         private int area;
         private int height;
         private int weight;
@@ -57,7 +57,7 @@ public class BuildTallestTower {
         mh = new int[N];
 
         for (int i = 0; i < N; i++) {
-            bricks.add(T.new Brick(kb.nextInt(), kb.nextInt(), kb.nextInt()));
+            bricks.add(new Brick(kb.nextInt(), kb.nextInt(), kb.nextInt()));
         }
 
         System.out.println(T.getMaxHeight(bricks));
