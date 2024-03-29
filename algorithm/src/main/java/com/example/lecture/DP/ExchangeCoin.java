@@ -18,7 +18,7 @@ public class ExchangeCoin {
 
         for (int i = 1; i <= M; i++) {
             for (int j = 0; j < N; j++) {
-                if (i > coin[j] && d[i - coin[j]] != Integer.MAX_VALUE) {
+                if (i > coin[j]) {
                     d[i] = Math.min(d[i], d[i - coin[j]] + 1);
                 }
             }
