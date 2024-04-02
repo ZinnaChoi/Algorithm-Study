@@ -2,7 +2,7 @@ package com.example.baekjoon.silver;
 
 import java.util.Scanner;
 
-public class OrganicCabbage {
+public class OrganicCabbageDFS {
 
     static int[][] dir = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
 
@@ -21,7 +21,7 @@ public class OrganicCabbage {
     }
 
     public static void main(String[] args) {
-        OrganicCabbage OC = new OrganicCabbage();
+        OrganicCabbageDFS OC = new OrganicCabbageDFS();
         Scanner kb = new Scanner(System.in);
 
         int T = kb.nextInt();
