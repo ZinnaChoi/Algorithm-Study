@@ -2,7 +2,7 @@ package com.example.lecture.DFS_BFS;
 
 import java.util.Scanner;
 
-public class IslandCnt {
+public class IslandCntDFS {
 
     static int N;
     static int[][] map;
@@ -22,7 +22,7 @@ public class IslandCnt {
     }
 
     public static void main(String[] args) {
-        IslandCnt T = new IslandCnt();
+        IslandCntDFS T = new IslandCntDFS();
         Scanner kb = new Scanner(System.in);
 
         N = kb.nextInt();
