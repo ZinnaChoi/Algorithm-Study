@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class OrganicCabbageBFS {
 
-    static int[][] dir = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
+    private static final int[][] dir = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
 
     static class Point {
         public int x;

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class OrganicCabbageDFS {
 
-    static int[][] dir = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
+    private static final int[][] dir = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
 
     public void DFS(int M, int N, int[][] loc, int[][] visited, int x, int y) {
 
