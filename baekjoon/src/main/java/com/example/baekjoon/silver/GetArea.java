@@ -7,12 +7,12 @@ import java.util.Scanner;
 
 public class GetArea {
 
-    static int M, N, K;
-    static int[][] map;
-    static int[][] visited;
-    static final int[][] dir = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
+    private static int M, N, K;
+    private static int[][] map;
+    private static int[][] visited;
+    private static final int[][] dir = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
 
-    public int DFS(int x, int y) {
+    public int calculateArea(int x, int y) {
         visited[x][y] = 1;
         int area = 1;
 
@@ -20,7 +20,7 @@ public class GetArea {
             int dx = x + d[0];
             int dy = y + d[1];
             if (dx >= 0 && dx < M && dy >= 0 && dy < N && visited[dx][dy] == 0 && map[dx][dy] == 0) {
-                area += DFS(dx, dy);
+                area += calculateArea(dx, dy);
             }
         }
         return area;
@@ -36,7 +36,6 @@ public class GetArea {
 
         map = new int[M][N];
         visited = new int[M][N];
-        List<Integer> widths = new ArrayList<>();
 
         for (int i = 0; i < K; i++) {
             int a = kb.nextInt();
@@ -51,23 +50,22 @@ public class GetArea {
             }
         }
 
+        List<Integer> widths = new ArrayList<>();
         int cnt = 0;
         for (int i = 0; i < M; i++) {
             for (int j = 0; j < N; j++) {
                 if (map[i][j] == 0 && visited[i][j] == 0) {
-                    widths.add(T.DFS(i, j));
+                    widths.add(T.calculateArea(i, j));
                     cnt++;
                 }
-
             }
         }
 
         System.out.println(cnt);
 
         Collections.sort(widths);
-        for (int w : widths) {
+        for (int w : widths)
             System.out.print(w + " ");
-        }
 
         kb.close();
     }
