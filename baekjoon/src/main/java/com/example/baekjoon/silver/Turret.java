@@ -32,18 +32,13 @@ public class Turret {
         if (d == 0) {
             if (r1 == r2)
                 return -1;
-            else
-                return 0;
         } else {
             if (d == Math.abs(r1 - r2) || d == r1 + r2)
                 return 1;
-
             else if (d > Math.abs(r1 - r2) && d < r1 + r2)
                 return 2;
-
-            else
-                return 0;
         }
+        return 0;
     }
 
     public static void main(String[] args) throws IOException {
