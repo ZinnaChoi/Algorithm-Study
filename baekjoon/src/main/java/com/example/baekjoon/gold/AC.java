@@ -21,7 +21,6 @@ public class AC {
                     end--;
                 else
                     start++;
-
             }
         }
 
