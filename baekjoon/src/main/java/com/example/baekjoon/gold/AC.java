@@ -3,9 +3,45 @@ package com.example.baekjoon.gold;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayDeque;
 import java.util.Arrays;
+import java.util.Deque;
 
 public class AC {
+
+    public String getResult2(String p, int[] arr) {
+        Deque<Integer> deque = new ArrayDeque<>();
+        for (int value : arr) {
+            deque.addLast(value);
+        }
+
+        boolean reverse = false;
+        for (char c : p.toCharArray()) {
+            if (c == 'R') {
+                reverse = !reverse;
+            } else {
+                if (deque.isEmpty()) {
+                    return "error";
+                }
+                if (reverse) {
+                    deque.removeLast();
+                } else {
+                    deque.removeFirst();
+                }
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        while (!deque.isEmpty()) {
+            sb.append(reverse ? deque.removeLast() : deque.removeFirst());
+            if (!deque.isEmpty()) {
+                sb.append(",");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
+    }
 
     public String getResult(String p, int[] arr) {
         int start = 0, end = arr.length - 1;
@@ -62,7 +98,7 @@ public class AC {
                         .toArray();
 
             }
-            System.out.println(ac.getResult(p, arr));
+            System.out.println(ac.getResult2(p, arr));
         }
     }
 }
