@@ -8,7 +8,7 @@ public class OneTwoThreePlusFour {
 
     public int cntWays(int n) {
 
-        if (n == 1 || n == 2 || n == 3)
+        if (n < 4)
             return n;
 
         int[][] dp = new int[n + 1][4];
