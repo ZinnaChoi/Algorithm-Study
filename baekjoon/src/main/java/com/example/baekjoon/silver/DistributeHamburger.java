@@ -8,19 +8,19 @@ import java.io.InputStreamReader;
 public class DistributeHamburger {
 
     public int getMaxPeopleCnt(int N, int K, char[] loc) {
-        int answer = 0;
+        int peopleCnt = 0;
         for (int i = 0; i < N; i++) {
             if (loc[i] == 'P') {
                 for (int j = i - K; j <= i + K; j++) {
                     if (j >= 0 && j < N && loc[j] == 'H') {
                         loc[j] = 'E';
-                        answer++;
+                        peopleCnt++;
                         break;
                     }
                 }
             }
         }
-        return answer;
+        return peopleCnt;
     }
 
     public static void main(String[] args) throws IOException {
