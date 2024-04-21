@@ -1,4 +1,4 @@
-package com.example.baekjoon;
+package com.example.baekjoon.silver;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
