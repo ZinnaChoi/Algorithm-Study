@@ -15,11 +15,11 @@ public class RedGreenGlaze {
     static int normalCnt = 0;
     static int glazeCnt = 0;
 
-    static final int[][] dir = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
+    static final int[][] DIR = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
 
     static class Point {
-        private int x;
-        private int y;
+        int x;
+        int y;
 
         Point(int x, int y) {
             this.x = x;
@@ -27,58 +27,36 @@ public class RedGreenGlaze {
         }
     }
 
-    public void normalBFS(int x, int y) {
-
+    private void BFS(int[][] dist, int x, int y, boolean isGlaze) {
         Queue<Point> Q = new LinkedList<>();
         Q.offer(new Point(x, y));
-        normalDist[x][y] = normalCnt;
+        int cnt = isGlaze ? glazeCnt : normalCnt;
+        dist[x][y] = cnt;
 
         while (!Q.isEmpty()) {
             Point cur = Q.poll();
 
-            for (int[] d : dir) {
+            for (int[] d : DIR) {
                 int dx = cur.x + d[0];
                 int dy = cur.y + d[1];
 
-                if (dx >= 0 && dx < N && dy >= 0 && dy < N
-                        && normalDist[dx][dy] == 0 && map[dx][dy] == map[cur.x][cur.y]) {
-                    normalDist[dx][dy] = normalCnt;
-                    Q.offer(new Point(dx, dy));
-                }
-            }
-        }
-    }
+                if (dx >= 0 && dx < N && dy >= 0 && dy < N && dist[dx][dy] == 0) {
+                    boolean shouldAdd = !isGlaze
+                            ? map[dx][dy] == map[cur.x][cur.y]
+                            : !isDifferent(dx, dy, cur.x, cur.y);
 
-    public void glazeDFS(int x, int y) {
-
-        Queue<Point> Q = new LinkedList<>();
-        Q.offer(new Point(x, y));
-        glazeDist[x][y] = glazeCnt;
-
-        while (!Q.isEmpty()) {
-            Point cur = Q.poll();
-
-            for (int[] d : dir) {
-                int dx = cur.x + d[0];
-                int dy = cur.y + d[1];
-
-                if (dx >= 0 && dx < N && dy >= 0 && dy < N) {
-                    boolean diff = false;
-                    if (map[dx][dy] == 'B') {
-                        if (map[cur.x][cur.y] != 'B')
-                            diff = true;
-                    } else {
-                        if (map[cur.x][cur.y] == 'B')
-                            diff = true;
-                    }
-                    if (glazeDist[dx][dy] == 0 && !diff) {
-                        glazeDist[dx][dy] = glazeCnt;
+                    if (shouldAdd) {
+                        dist[dx][dy] = cnt;
                         Q.offer(new Point(dx, dy));
                     }
                 }
             }
         }
+    }
 
+    private boolean isDifferent(int x, int y, int dx, int dy) {
+        return map[x][y] == 'B' && map[dx][dy] != 'B'
+                || map[x][y] != 'B' && map[dx][dy] == 'B';
     }
 
     public static void main(String[] args) throws IOException {
@@ -101,16 +79,16 @@ public class RedGreenGlaze {
             for (int j = 0; j < N; j++) {
                 if (normalDist[i][j] == 0) {
                     normalCnt++;
-                    T.normalBFS(i, j);
+                    T.BFS(normalDist, i, j, false);
                 }
 
                 if (glazeDist[i][j] == 0) {
                     glazeCnt++;
-                    T.glazeDFS(i, j);
+                    T.BFS(glazeDist, i, j, true);
                 }
             }
         }
 
-        System.out.print(normalCnt + " " + glazeCnt);
+        System.out.println(normalCnt + " " + glazeCnt);
     }
 }
