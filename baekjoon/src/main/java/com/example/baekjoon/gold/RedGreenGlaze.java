@@ -27,10 +27,9 @@ public class RedGreenGlaze {
         }
     }
 
-    private void BFS(int[][] dist, int x, int y, boolean isGlaze) {
+    private void BFS(int[][] dist, int x, int y, boolean isGlaze, int cnt) {
         Queue<Point> Q = new LinkedList<>();
         Q.offer(new Point(x, y));
-        int cnt = isGlaze ? glazeCnt : normalCnt;
         dist[x][y] = cnt;
 
         while (!Q.isEmpty()) {
@@ -79,12 +78,12 @@ public class RedGreenGlaze {
             for (int j = 0; j < N; j++) {
                 if (normalDist[i][j] == 0) {
                     normalCnt++;
-                    T.BFS(normalDist, i, j, false);
+                    T.BFS(normalDist, i, j, false, normalCnt);
                 }
 
                 if (glazeDist[i][j] == 0) {
                     glazeCnt++;
-                    T.BFS(glazeDist, i, j, true);
+                    T.BFS(glazeDist, i, j, true, glazeCnt);
                 }
             }
         }
