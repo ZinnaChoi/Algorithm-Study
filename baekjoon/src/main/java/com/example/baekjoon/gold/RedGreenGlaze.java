@@ -10,10 +10,8 @@ public class RedGreenGlaze {
 
     static int N;
     static char[][] map;
-    static int[][] normalDist;
-    static int[][] glazeDist;
-    static int normalCnt = 0;
-    static int glazeCnt = 0;
+    static boolean[][] normalVisited;
+    static boolean[][] glazeVisited;
 
     static final int[][] DIR = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 } };
 
@@ -27,35 +25,35 @@ public class RedGreenGlaze {
         }
     }
 
-    private void BFS(int[][] dist, int x, int y, boolean isGlaze, int cnt) {
-        Queue<Point> Q = new LinkedList<>();
-        Q.offer(new Point(x, y));
-        dist[x][y] = cnt;
+    private void BFS(boolean[][] visited, int x, int y, boolean isGlaze) {
+        Queue<Point> queue = new LinkedList<>();
+        queue.offer(new Point(x, y));
+        visited[x][y] = true;
 
-        while (!Q.isEmpty()) {
-            Point cur = Q.poll();
+        while (!queue.isEmpty()) {
+            Point cur = queue.poll();
 
             for (int[] d : DIR) {
                 int dx = cur.x + d[0];
                 int dy = cur.y + d[1];
 
-                if (dx >= 0 && dx < N && dy >= 0 && dy < N && dist[dx][dy] == 0) {
-                    boolean shouldAdd = !isGlaze
+                if (dx >= 0 && dx < N && dy >= 0 && dy < N && !visited[dx][dy]) {
+                    boolean isSame = !isGlaze
                             ? map[dx][dy] == map[cur.x][cur.y]
                             : !isDifferent(dx, dy, cur.x, cur.y);
 
-                    if (shouldAdd) {
-                        dist[dx][dy] = cnt;
-                        Q.offer(new Point(dx, dy));
+                    if (isSame) {
+                        visited[dx][dy] = true;
+                        queue.offer(new Point(dx, dy));
                     }
                 }
             }
         }
     }
 
-    private boolean isDifferent(int x, int y, int dx, int dy) {
-        return map[x][y] == 'B' && map[dx][dy] != 'B'
-                || map[x][y] != 'B' && map[dx][dy] == 'B';
+    private boolean isDifferent(int x, int y, int curX, int curY) {
+        return (map[x][y] == 'B' && map[curX][curY] != 'B')
+                || (map[x][y] != 'B' && map[curX][curY] == 'B');
     }
 
     public static void main(String[] args) throws IOException {
@@ -64,8 +62,11 @@ public class RedGreenGlaze {
 
         N = Integer.parseInt(br.readLine());
         map = new char[N][N];
-        normalDist = new int[N][N];
-        glazeDist = new int[N][N];
+        normalVisited = new boolean[N][N];
+        glazeVisited = new boolean[N][N];
+
+        int normalCnt = 0;
+        int glazeCnt = 0;
 
         for (int i = 0; i < N; i++) {
             char[] line = br.readLine().toCharArray();
@@ -76,14 +77,14 @@ public class RedGreenGlaze {
 
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
-                if (normalDist[i][j] == 0) {
+                if (!normalVisited[i][j]) {
                     normalCnt++;
-                    T.BFS(normalDist, i, j, false, normalCnt);
+                    T.BFS(normalVisited, i, j, false);
                 }
 
-                if (glazeDist[i][j] == 0) {
+                if (!glazeVisited[i][j]) {
                     glazeCnt++;
-                    T.BFS(glazeDist, i, j, true, glazeCnt);
+                    T.BFS(glazeVisited, i, j, true);
                 }
             }
         }
