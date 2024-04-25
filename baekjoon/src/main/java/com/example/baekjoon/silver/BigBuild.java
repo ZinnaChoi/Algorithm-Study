@@ -30,18 +30,17 @@ public class BigBuild {
 
         for (int i = 0; i < N; i++) {
             int rank = 1;
-            Person current = people.get(i);
+            Person cur = people.get(i);
             for (int j = 0; j < N; j++) {
                 if (i == j)
                     continue;
                 Person other = people.get(j);
-                if (other.isBiggerThan(current)) {
+                if (other.isBiggerThan(cur)) {
                     rank += 1;
                 }
             }
             ranks[i] = rank;
         }
-
         return ranks;
     }
 
@@ -55,9 +54,7 @@ public class BigBuild {
 
         for (int i = 0; i < N; i++) {
             String[] line = br.readLine().split(" ");
-            int weight = Integer.parseInt(line[0]);
-            int height = Integer.parseInt(line[1]);
-            people.add(new Person(weight, height));
+            people.add(new Person(Integer.parseInt(line[0]), Integer.parseInt(line[1])));
         }
 
         for (int r : T.getBuildRank(people)) {
