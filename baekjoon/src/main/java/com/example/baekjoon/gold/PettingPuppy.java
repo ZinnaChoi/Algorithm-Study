@@ -13,7 +13,7 @@ public class PettingPuppy {
             return diff;
 
         int minDays = 2;
-        diff = diff - 2;
+        diff -= 2;
         int cur = 1;
 
         while (diff > 0) {
