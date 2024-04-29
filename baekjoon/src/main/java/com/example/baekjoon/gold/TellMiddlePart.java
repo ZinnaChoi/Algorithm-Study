@@ -15,12 +15,10 @@ public class TellMiddlePart {
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
 
         for (int i = 0; i < arr.length; i++) {
-            int num = arr[i];
-
             if (minHeap.size() == maxHeap.size())
-                maxHeap.offer(num);
+                maxHeap.offer(arr[i]);
             else
-                minHeap.offer(num);
+                minHeap.offer(arr[i]);
 
             if (!minHeap.isEmpty() && !maxHeap.isEmpty())
                 if (minHeap.peek() < maxHeap.peek()) {
