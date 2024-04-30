@@ -18,7 +18,6 @@ public class RGBStreet {
             G[i + 1] = Math.min(R[i], B[i]) + info[i][1];
             B[i + 1] = Math.min(R[i], G[i]) + info[i][2];
         }
-
         return Math.min(R[N], Math.min(G[N], B[N]));
     }
 
@@ -35,8 +34,6 @@ public class RGBStreet {
                 info[i][j] = Integer.parseInt(line[j]);
             }
         }
-
         System.out.println(T.getMinCost(info));
-
     }
 }
