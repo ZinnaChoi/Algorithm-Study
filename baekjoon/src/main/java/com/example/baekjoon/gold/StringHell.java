@@ -6,9 +6,10 @@ import java.io.IOException;
 
 public class StringHell {
 
-    static int N, M, K;
-    static char[][] map;
-    static int[][][] memo;
+    private static int N, M, K;
+    private static char[][] map;
+    private static int[][][] memo;
+    private static final int MAX_WORD_LENGTH = 5;
 
     static final int[][] dir = { { 1, 0 }, { 0, 1 }, { -1, 0 }, { 0, -1 }, { 1, 1 }, { 1, -1 }, { -1, 1 }, { -1, -1 } };
 
@@ -43,7 +44,7 @@ public class StringHell {
         K = Integer.parseInt(nums[2]);
 
         map = new char[N][M];
-        memo = new int[N][M][5];
+        memo = new int[N][M][MAX_WORD_LENGTH];
 
         for (int n = 0; n < N; n++) {
             char[] words = br.readLine().toCharArray();
@@ -55,7 +56,7 @@ public class StringHell {
         for (int i = 0; i < K; i++) {
             for (int n = 0; n < N; n++) {
                 for (int m = 0; m < M; m++) {
-                    for (int l = 0; l < 5; l++) {
+                    for (int l = 0; l < MAX_WORD_LENGTH; l++) {
                         memo[n][m][l] = -1;
                     }
                 }
