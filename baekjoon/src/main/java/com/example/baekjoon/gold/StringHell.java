@@ -28,6 +28,7 @@ public class StringHell {
                 cnt += DFS(L + 1, dx, dy, target);
             }
         }
+
         memo[x][y][L] = cnt;
         return cnt;
     }
@@ -48,12 +49,10 @@ public class StringHell {
             char[] words = br.readLine().toCharArray();
             for (int m = 0; m < M; m++) {
                 map[n][m] = words[m];
-
             }
         }
 
         for (int i = 0; i < K; i++) {
-
             for (int n = 0; n < N; n++) {
                 for (int m = 0; m < M; m++) {
                     for (int l = 0; l < 5; l++) {
