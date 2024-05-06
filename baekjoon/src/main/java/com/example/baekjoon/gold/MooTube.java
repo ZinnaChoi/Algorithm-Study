@@ -25,26 +25,16 @@ public class MooTube {
         Queue<Integer> queue = new LinkedList<>();
         queue.add(V);
         visited[V] = true;
-
-        int[] minUSADO = new int[N + 1];
-        Arrays.fill(minUSADO, Integer.MAX_VALUE);
-        minUSADO[V] = Integer.MAX_VALUE;
-
         int cnt = 0;
 
         while (!queue.isEmpty()) {
             int cur = queue.poll();
 
             for (Edge edge : graph.get(cur)) {
-                if (!visited[edge.node]) {
-                    int value = Math.min(minUSADO[cur], edge.weight);
-
-                    if (value >= K) {
-                        queue.add(edge.node);
-                        visited[edge.node] = true;
-                        minUSADO[edge.node] = value;
-                        cnt++;
-                    }
+                if (!visited[edge.node] && edge.weight >= K) {
+                    queue.add(edge.node);
+                    visited[edge.node] = true;
+                    cnt++;
                 }
             }
         }
