@@ -20,7 +20,7 @@ public class MooTube {
         }
     }
 
-    private int BFS(ArrayList<ArrayList<Edge>> graph, int N, int V, int K) {
+    public int BFS(ArrayList<ArrayList<Edge>> graph, int N, int V, int K) {
         boolean[] visited = new boolean[N + 1];
         Queue<Integer> queue = new LinkedList<>();
         queue.add(V);
