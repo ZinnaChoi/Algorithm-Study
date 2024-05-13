@@ -1,62 +1,53 @@
 package com.example.prac.Lv2;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CalculateParkingFee {
 
+  private int calculateFee(int[] fees, int parkingTime) {
+    if (parkingTime <= fees[0]) {
+      return fees[1];
+    } else {
+      int extraTime = parkingTime - fees[0];
+      int extraFee = (int) Math.ceil((double) extraTime / fees[2]) * fees[3];
+      return fees[1] + extraFee;
+    }
+  }
+
+  private int convertTime(String time) {
+    String[] parts = time.split(":");
+    return Integer.parseInt(parts[0]) * 60 + Integer.parseInt(parts[1]);
+  }
+
   public int[] solution(int[] fees, String[] records) {
-    Map<String, String> timeStampPerCar = new HashMap<>();
-    Map<String, Integer> timePerCar = new TreeMap<>();
+    Map<String, Integer> parkingMap = new HashMap<>();
+    Map<String, Integer> feeMap = new HashMap<>();
 
     for (String record : records) {
       String[] parts = record.split(" ");
-      String time = parts[0];
-      String carNum = parts[1];
-      String inOut = parts[2];
-      if (inOut.equals("IN")) {
-        timeStampPerCar.put(carNum, time);
-      } else if (inOut.equals("OUT")) {
-        timePerCar.put(
-          carNum,
-          timePerCar.getOrDefault(carNum, 0) +
-          calculateTimeDiff(time, timeStampPerCar.get(carNum))
-        );
-        timeStampPerCar.remove(carNum);
+      int time = convertTime(parts[0]);
+      String carNumber = parts[1];
+      String action = parts[2];
+
+      if (action.equals("IN")) {
+        parkingMap.put(carNumber, time);
+      } else {
+        int inTime = parkingMap.remove(carNumber);
+        int parkedTime = time - inTime;
+        feeMap.merge(carNumber, parkedTime, Integer::sum);
       }
     }
 
-    for (Map.Entry<String, String> entry : timeStampPerCar.entrySet()) {
-      timePerCar.put(
-        entry.getKey(),
-        timePerCar.getOrDefault(entry.getKey(), 0) +
-        calculateTimeDiff("23:59", entry.getValue())
-      );
-    }
+    parkingMap.forEach((carNumber, inTime) -> {
+      int parkedTime = 23 * 60 + 59 - inTime;
+      feeMap.merge(carNumber, parkedTime, Integer::sum);
+    });
 
-    int[] answer = new int[timePerCar.size()];
-    int idx = 0;
-    for (Map.Entry<String, Integer> entry : timePerCar.entrySet()) {
-      int parkingTime = entry.getValue();
-      answer[idx++] =
-        (parkingTime < fees[0])
-          ? fees[1]
-          : fees[1] +
-          (int) Math.ceil((parkingTime - fees[0]) / (double) fees[2]) *
-          fees[3];
-    }
-
-    return answer;
+    return feeMap.entrySet().stream()
+        .sorted(Map.Entry.comparingByKey())
+        .mapToInt(e -> calculateFee(fees, e.getValue()))
+        .toArray();
   }
 
-  public int calculateTimeDiff(String outTime, String inTime) {
-    String[] outParts = outTime.split(":");
-    String[] inParts = inTime.split(":");
-
-    int outHour = Integer.parseInt(outParts[0]);
-    int outMinute = Integer.parseInt(outParts[1]);
-    int inHour = Integer.parseInt(inParts[0]);
-    int inMinute = Integer.parseInt(inParts[1]);
-
-    return (outHour - inHour) * 60 + outMinute - inMinute;
-  }
 }
