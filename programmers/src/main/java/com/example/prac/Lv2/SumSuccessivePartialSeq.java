@@ -2,30 +2,27 @@ package com.example.prac.Lv2;
 
 public class SumSuccessivePartialSeq {
     public int[] solution(int[] sequence, int k) {
-        int start = 0;
-        int end = 0;
-        int currentSum = sequence[0];
 
-        int[] result = new int[] { 0, sequence.length - 1 };
+        int n = sequence.length, start = 0, end = 0;
+        int minLength = Integer.MAX_VALUE;
+        int[] result = new int[2];
 
-        while (start <= end && end < sequence.length) {
-            if (currentSum < k) {
-                end++;
-                if (end < sequence.length) {
-                    currentSum += sequence[end];
-                }
-            } else if (currentSum > k) {
-                currentSum -= sequence[start];
-                start++;
-            } else {
-                if (end - start < result[1] - result[0]) {
+        int sum = sequence[0];
+        while (start < n && end < n) {
+            if (sum == k) {
+                if (end - start + 1 < minLength) {
+                    minLength = end - start + 1;
                     result[0] = start;
                     result[1] = end;
                 }
-                end++;
-                if (end < sequence.length) {
-                    currentSum += sequence[end];
+                sum -= sequence[start++];
+            } else if (sum < k) {
+                if (++end < n) {
+                    sum += sequence[end];
                 }
+            } else {
+                // sum > k
+                sum -= sequence[start++];
             }
         }
         return result;
