@@ -1,38 +1,35 @@
 package com.example.prac.Lv2;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class BoxCount {
 
   public int solution(int[] order) {
+    Stack<Integer> helpBelt = new Stack<>();
+    Queue<Integer> mainBelt = new LinkedList<>();
+
+    for (int i = 1; i <= order.length; i++) {
+      mainBelt.add(i);
+    }
+
+    int idx = 0;
     int boxCnt = 0;
-    int[] belt = new int[order.length];
-    Stack<Integer> assist = new Stack<>();
-
-    for (int i = 0; i < order.length; i++) {
-      belt[order[i] - 1] = i + 1;
-    }
-
-    int beltIndex = 1;
-    for (int i = 0; i < belt.length; i++) {
-      while (!assist.isEmpty() && assist.peek() == beltIndex) {
-        assist.pop();
+    while (!mainBelt.isEmpty()) {
+      int cur = mainBelt.poll();
+      if (cur == order[idx]) {
         boxCnt++;
-        beltIndex++;
-      }
-
-      if (belt[i] == beltIndex) {
-        beltIndex++;
-        boxCnt++;
+        idx++;
       } else {
-        assist.push(belt[i]);
+        helpBelt.push(cur);
       }
-    }
 
-    while (!assist.isEmpty() && assist.peek() == beltIndex) {
-      assist.pop();
-      boxCnt++;
-      beltIndex++;
+      while (!helpBelt.isEmpty() && helpBelt.peek() == order[idx]) {
+        helpBelt.pop();
+        boxCnt++;
+        idx++;
+      }
     }
 
     return boxCnt;
